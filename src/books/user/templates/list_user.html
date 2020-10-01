@@ -1,0 +1,12 @@
+{%extends 'base.html'%}
+{%block content%}
+<a href="{% url 'index' %}">Home</a>
+<p>Count: {{ user_list.count }}</p>
+{% for user in user_list %}
+    <p><a href="{%url 'user-update' pk=user.id%}">ID: {{ user.id }}</a>, First name: {{ user.first_name }}, Phone: {{ user.phone }}</p>
+{% endfor %}
+
+{%endblock content%}
+
+
+
