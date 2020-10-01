@@ -1,5 +1,8 @@
 import os
 
+# from celery import Celery
+from celery.schedules import crontab
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -105,3 +108,28 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Celery
+CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_BEAT_SCHEDULE = {
+    'parse': {
+        'task': 'user.tasks.smth_slow_async',
+        'schedule': crontab(minute='*/1'),
+    },
+}
+
+CELERY_BEAT_SCHEDULE = {
+    'logs': {
+        'task': 'user.tasks.old_logs_async',
+        'schedule': crontab(minute=20, hour=12, day_of_week='mon,tue,wed,thu,fri,sat,sun'),
+    },
+}
+
+# sending email
+EMAIL_HOST_USER = 'lbdltest77@gmail.com'
+EMAIL_HOST_PASSWORD = 'django77'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

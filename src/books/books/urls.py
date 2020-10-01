@@ -11,4 +11,7 @@ urlpatterns = [
     path('ul/', uv.users, name='user-name'),
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
     path('uu/<int:pk>/', uv.update_user, name='user-update'),
+    path('slow/', uv.slow, name='slow'),
+    path('contact/', uv.contact, name='contact'),
+    path('log/', uv.log, name='logs'),
 ]
